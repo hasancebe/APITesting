@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 public class C01_Get_request {
     private String usersReqresIn="https://reqres.in/api/users";
     @Test
-    public void gerUsersReqresIn(){
+    public void getUsersReqresIn(){
         Response response=given().when().get(usersReqresIn);
        // response.prettyPrint();
         response.then().log().all();
