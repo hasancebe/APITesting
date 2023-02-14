@@ -30,7 +30,7 @@ public class C05_GetRequest {
         System.out.println("3rd employee name "+ jsonPath.getString("data[3].employee_name"));
 
         //3) Let's print the names of the first 5 employees on the console
-       System.out.println("first 5 employee name "+ jsonPath.get("data[5].employee_name"));
+       System.out.println("first 5 employee name "+ jsonPath.get("data[0,1,2,3,4].employee_name"));
 
         //4) Let's print the last employee's name on the console
         System.out.println("last employee name "+ jsonPath.getString("data[-1].employee_name"));

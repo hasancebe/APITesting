@@ -2,6 +2,8 @@ package Day_03;
 
 import org.junit.Test;
 
+import static utilities.ApiCalls.checkUsersBookingExistWithId;
+
 public class C06_GetRequest {
 
     /*

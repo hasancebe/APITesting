@@ -2,8 +2,9 @@ package TurkishClass.Day_01;
 
 import org.json.JSONObject;
 import org.junit.Test;
+import utilities.TestBase;
 
-public class C02_Json extends TestBase{
+public class C02_Json extends TestBase {
     @Test
     public void json_Obj(){
         JSONObject firstObj=new JSONObject();

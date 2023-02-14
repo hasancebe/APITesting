@@ -4,10 +4,11 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Test;
+import utilities.TestBase;
 
 import static io.restassured.RestAssured.given;
 
-public class C03_Put extends  TestBase {
+public class C03_Put extends TestBase {
 
     String url="https://jsonplaceholder.typicode.com/posts/70";
     @Test

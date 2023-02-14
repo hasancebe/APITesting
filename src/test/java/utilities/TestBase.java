@@ -1,4 +1,4 @@
-package TurkishClass.Day_01;
+package utilities;
 
 import io.restassured.response.Response;
 
