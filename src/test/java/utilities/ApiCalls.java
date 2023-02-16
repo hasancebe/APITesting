@@ -1,8 +1,12 @@
 package utilities;
 
 import Day_03.BaseUrl;
+import Day_03.pojo.JsonPlaceHolderPojo;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.hamcrest.Matchers;
+import org.json.JSONObject;
 import org.junit.Assert;
 
 import java.util.HashMap;
@@ -10,6 +14,7 @@ import java.util.HashMap;
 import static Day_03.BaseUrl.userIDHerokuapp;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
+import static utilities.BaseUrlInterface.patcjsonplaceholder;
 
 public class ApiCalls extends BaseUrl {
     // This method will return response and we will use MatcherClass
@@ -107,4 +112,48 @@ public class ApiCalls extends BaseUrl {
         return response ;
     }
 
+    public static  Response patchRequestJsonPlaceHolder(int id,int statuscode,int userId,
+                                                        String title, boolean completed){
+
+        JSONObject requestData=new JSONObject();
+        requestData.put("title",title);
+        JSONObject expectedData=new JSONObject();
+        expectedData.put("userId",userId);
+        expectedData.put("title",title);
+        expectedData.put("completed",completed);
+        Response response=given().contentType(ContentType.JSON)
+                .body(requestData.toString())
+                .when()
+                .patch(patcjsonplaceholder(id));
+        response.then().assertThat().statusCode(statuscode).body("userId",Matchers.equalTo(1),"title",
+                Matchers.equalTo(title),
+                "completed",Matchers.equalTo(completed));
+        return response;
+    }
+
+
+    public static Response pojoPostJasonPlaceHolder(int id, int statuscode,int userId,
+                                                    String title, boolean completed){
+
+        JsonPlaceHolderPojo expectedData=new JsonPlaceHolderPojo();
+        expectedData.setId(201);
+        expectedData.setUserId(120);
+        expectedData.setTitle("Slovenia");
+        expectedData.setCompleted(true);
+
+        Response response=given().contentType(ContentType.JSON)
+                .body(expectedData)
+                .when()
+                .post(utilities.BaseUrlInterface.createJsonPlaceHolder());
+
+       response.then().assertThat().statusCode(statuscode);
+
+        JsonPlaceHolderPojo actualData=response.as(JsonPlaceHolderPojo.class);
+
+        Assert.assertEquals(expectedData.getId(),actualData.getId());
+        Assert.assertEquals(expectedData.getUserId(),actualData.getUserId());
+        Assert.assertEquals(expectedData.getTitle(),actualData.getTitle());
+        Assert.assertEquals(expectedData.isCompleted(),actualData.isCompleted());
+        return response;
+    }
 }
